@@ -1,7 +1,7 @@
 # Classifying traits
 
 face_files = {
-    "White": "face1",
+    "White": "face1", # assigning with the file names 
     "Black": "face2"
 }
 
