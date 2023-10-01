@@ -1,1 +1,4 @@
 /images
+/metadata
+.env
+node_modules

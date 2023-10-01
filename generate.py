@@ -3,19 +3,23 @@ import os
 from PIL import Image
 from traits_files import face_files,eyes_files,ears_files,hair_files,mouth_files,nose_files,extras_files
 
-with open('image_data.json','r') as file:
+with open('./metadata/all_metadata.json','r') as file:
     get_image_data = json.load(file)
 
 os.mkdir(f'./images')
 
 for image in get_image_data:
-    img1 = Image.open(f'./scripts/face_parts/face/{face_files[image["Face"]]}.png').convert("RGBA")
-    img2 = Image.open(f'./scripts/face_parts/ears/{ears_files[image["Ears"]]}.png').convert("RGBA")
-    img3 = Image.open(f'./scripts/face_parts/eyes/{eyes_files[image["Eyes"]]}.png').convert("RGBA")
-    img4 = Image.open(f'./scripts/face_parts/mouth/{mouth_files[image["Mouth"]]}.png').convert("RGBA")
-    img5 = Image.open(f'./scripts/face_parts/nose/{nose_files[image["Nose"]]}.png').convert("RGBA")
-    img6 = Image.open(f'./scripts/face_parts/hair/{hair_files[image["Hairs"]]}.png').convert("RGBA")
-    img7 = Image.open(f'./scripts/face_parts/extras/{extras_files[image["Extras"]]}.png').convert("RGBA")
+    image_traits = {}
+    for trait in image["attributes"]:
+        image_traits[trait["trait_type"]] = trait["value"]  # Face : White 
+
+    img1 = Image.open(f'./scripts/face_parts/face/{face_files[image_traits["Face"]]}.png').convert("RGBA")
+    img2 = Image.open(f'./scripts/face_parts/ears/{ears_files[image_traits["Ears"]]}.png').convert("RGBA")
+    img3 = Image.open(f'./scripts/face_parts/eyes/{eyes_files[image_traits["Eyes"]]}.png').convert("RGBA")
+    img4 = Image.open(f'./scripts/face_parts/mouth/{mouth_files[image_traits["Mouth"]]}.png').convert("RGBA")
+    img5 = Image.open(f'./scripts/face_parts/nose/{nose_files[image_traits["Nose"]]}.png').convert("RGBA")
+    img6 = Image.open(f'./scripts/face_parts/hair/{hair_files[image_traits["Hair"]]}.png').convert("RGBA")
+    img7 = Image.open(f'./scripts/face_parts/extras/{extras_files[image_traits["Extras"]]}.png').convert("RGBA")
 
     # Creating composites
     com1 = Image.alpha_composite(img1,img3)
