@@ -1,13 +1,20 @@
-# Define traits for the nft
+# // Define traits for the nft
+
+
+# total supply of the collection
+totalNfts = 200
 
 name = "Punks #"  # + the tokenId -> Punks #121
 
 description = "A test nft collection by Muhammad Masood"
 
-image = "ipfs://"  # + cid -> ipfs://QmYz6pVx4xvP2N9gjv6Zz4nY9nqA2V2zZ1s5r4qTjZz9a.png
+image = ""  # + cid -> ipfs://cid/name.png
 
 traits = [
-    {"Face": ["White", "Black"], "face_weight": [60, 40]},
+    {
+        "Face": ["White", "Black"],
+        "face_weight": [60, 40]
+    },
     {
         "Ears": ["No Earring", "Left Earring", "Right Earring", "Two Earrings"],
         "ears_weight": [25, 35, 39, 1],
@@ -44,7 +51,10 @@ traits = [
         ],
         "mouth_weights": [10, 10, 50, 10, 15, 5],
     },
-    {"Nose": ["Nose", "Nose Ring"], "nose_weights": [90, 10]},
+    {
+        "Nose": ["Nose", "Nose Ring"],
+        "nose_weights": [90, 10]
+    },
     {
         "Extras": [
             "No Beard",

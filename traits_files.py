@@ -17,7 +17,7 @@ eyes_files = {
     "Small": "eyes2",
     "Rayban": "eyes3",
     "Hipster": "eyes4",
-    "Focused": "eyes5"     
+    "Focused": "eyes5"
 }
 
 hair_files = {
