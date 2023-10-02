@@ -22,29 +22,64 @@ const totalNfts = 200;
 async function storeNftDirectory(files) {
     const cid = await client.storeDirectory(files);
     console.log("cid: ", cid);
+    return cid;
     // console.log(files);
 }
 
-async function storeNfts() {
+
+async function storeNftImages() {
     const files = [];
     for (let i = 0; i < totalNfts; i++) {
         const imagePath = `./images/${i}.png`;
         const imageName = i; //tokenId
         const imageFile = new File([await fs.promises.readFile(imagePath)], `${imageName}.png`, { type: 'image/png' });
         files.push(imageFile);
-        
-        // const data = await fs.promises.readFile(`./metadata/${i}.json`, 'utf-8');
-        // const nftMetadata = JSON.parse(data);
-        // nftMetadata.image = imageFile;
-        // const updatedNftMetadata = JSON.stringify(nftMetadata, null, 2);
-
-        // await fs.promises.writeFile(`./metadata/${i}.json`, updatedNftMetadata, 'utf-8');
-
-        // await storeNft(nftMetadata);
     }
-    await storeNftDirectory(files);
-    // await update_all_nfts_metadata();
+    const imageCid = await storeNftDirectory(files);
+    return imageCid;
 }
+
+async function storeNftMetadata() {
+    const imgsCid = await storeNftImages();
+    // update 'images' inside meta files
+    const files = [];
+    for (let i = 0; i < totalNfts; i++) {
+        const metaPath = `./metadata/${i}.json`;
+        const metaName = i; //tokenId
+        const data = await fs.promises.readFile(metaPath, 'utf-8');
+        const nftMetadata = JSON.parse(data);
+        nftMetadata.image = `ipfs://${imgsCid}/${i}.png`;
+        const updatedNftMetadata = JSON.stringify(nftMetadata, null, 2);
+
+        await fs.promises.writeFile(metaPath, updatedNftMetadata, 'utf-8');
+
+        const metaFile = new File([await fs.promises.readFile(metaPath)], `${metaName}.json`);
+        files.push(metaFile);
+    }
+    const metaCid = await storeNftDirectory(files);
+    return metaCid;
+}
+
+// async function storeNfts() {
+//     const files = [];
+//     for (let i = 0; i < totalNfts; i++) {
+//         const imagePath = `./images/${i}.png`;
+//         const imageName = i; //tokenId
+//         const imageFile = new File([await fs.promises.readFile(imagePath)], `${imageName}.png`, { type: 'image/png' });
+//         files.push(imageFile);
+
+//         // const data = await fs.promises.readFile(`./metadata/${i}.json`, 'utf-8');
+//         // const nftMetadata = JSON.parse(data);
+//         // nftMetadata.image = imageFile;
+//         // const updatedNftMetadata = JSON.stringify(nftMetadata, null, 2);
+
+//         // await fs.promises.writeFile(`./metadata/${i}.json`, updatedNftMetadata, 'utf-8');
+
+//         // await storeNft(nftMetadata);
+//     }
+//     const cid = await storeNftDirectory(files);
+//     // await update_all_nfts_metadata();
+// }
 
 async function update_all_nfts_metadata() {
     try {
@@ -66,7 +101,7 @@ async function update_all_nfts_metadata() {
     }
 }
 
-storeNfts();
+// storeNfts();
 
 // const imageUri = "ipfs://bafybeibdhcrosn2mwiutuq6ailnumwnjpriocyvogzokybebwaxf5nz3qi";
 

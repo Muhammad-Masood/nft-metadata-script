@@ -48,7 +48,14 @@ def generate_metadata():
         with open(f"./metadata/{filename}", "w") as json_file:
             json.dump(new_image, json_file, indent=4)
 
+        ##################
         # generating image
+        ##################
+
+        ###############
+        # Replace Paths
+        ###############
+
         image_traits = {}
         for trait in new_image["attributes"]:
             image_traits[trait["trait_type"]] = trait["value"]  # Face : White
@@ -87,7 +94,7 @@ def generate_metadata():
 
         img_name = str(new_image["tokenId"])  # 1.png, 2.png, 3.png, etc
 
-        file_name =  img_name + ".png"
+        file_name = img_name + ".png"
         # rgb_im.save("./images/" + file_name)
         com6.save("./images/" + file_name)
 
