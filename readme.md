@@ -3,14 +3,17 @@
 ## This is an ALL-IN-ONE NFT SCRIPT which can help you in:
 
 1. Generating complete custom metadata, including attributes or adding rarity.
-2. Generating 100% different images/nfts from the indivisual components based upon the rarity.
-3. Publishing both of your metadata and collection on-chain in a completely decentralized way, without worrying about third party services.
+2. Generating 100% different images/nfts from the individual components based upon the rarity.
+3. Publishing both of your metadata and collection off-chain being completely decentralized, without worrying about several third party services.
 
 ### Follow the below steps in order to publish your nft collection successfully on-chain:
 
 #### Pre-requisites
 
-We are using nft.storage to store our collection.
+1. Clone the repository.
+2. Run *npm install* to install dependencies.
+
+We'll be using **Nft.Storage** library to store our whole nft collection.
 
 1. Visit and login
 2. Create your api key and copy that
